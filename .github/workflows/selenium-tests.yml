@@ -1,0 +1,41 @@
+name: Selenium Pytest Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r SampleFramework/requirements.txt
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run Tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          pytest SampleFramework/test/test_e2etest.py -v -s \
+            --html=SampleFramework/reports/report.html \
+            --self-contained-html
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-report
+          path: SampleFramework/reports/report.html

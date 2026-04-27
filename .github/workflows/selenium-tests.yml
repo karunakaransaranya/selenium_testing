@@ -43,7 +43,7 @@ jobs:
           SHOP_URL: ${{ secrets.SHOP_URL }}
 
         run:
-          pytest -v -s --browser_name="chrome" \
+          pytest -v -s --browser_name="firefox" \
             --html=SampleFramework/reports/report.html \
             --self-contained-html
       - name: Upload Test Report

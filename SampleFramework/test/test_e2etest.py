@@ -2,6 +2,7 @@ import pytest
 
 from SampleFramework.POM.login import LoginPage
 from SampleFramework.POM.products import Products
+from SampleFramework.util.config import BASE_URL, USERNAME, PASSWORD
 
 
 
@@ -9,13 +10,13 @@ from SampleFramework.POM.products import Products
 def test_login(browser_detail):
     driver = browser_detail
     # driver.get("https://rahulshettyacademy.com/angularpractice/")
-    driver.get("https://rahulshettyacademy.com/loginpagePractise/")
+    driver.get(BASE_URL)
     loginPage = LoginPage(driver)
-    loginPage.login("rahulshettyacademy","Learning@830$3mK2")
+    loginPage.login(USERNAME,PASSWORD)
     loginPage.home()
     loginPage.get_title()
 
-    # driver.find_element(By.CSS_SELECTOR,"a[href='/angularpractice/shop']").click()
+
 
 @pytest.mark.E2Etest
 def test_checkout(browser_detail):

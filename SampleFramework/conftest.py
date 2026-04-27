@@ -11,19 +11,22 @@ def pytest_addoption(parser):
         help = "Browser name to run the tests",
     )
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="package")
 def browser_detail(request):
     global driver
     browser = request.config.getoption("browser_name")
     if browser == "chrome":
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")  # ✅ no UI needed in CI
-        options.add_argument("--no-sandbox")  # ✅ required in Linux CI
-        options.add_argument("--disable-dev-shm-usage")  # ✅ prevents memory issues
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")  #  required in Linux CI
+        options.add_argument("--disable-dev-shm-usage")  #  prevents memory issues
+        options.add_argument("--window-size=2560,1440")
         driver = webdriver.Chrome(options=options)
     elif browser == "firefox":
         options = webdriver.FirefoxOptions()
         options.add_argument("--headless")
+        options.add_argument("--width=2560")
+        options.add_argument("--height=1440")
         driver = webdriver.Firefox(options=options)
     yield driver
     driver.quit()

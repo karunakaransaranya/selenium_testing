@@ -31,8 +31,13 @@ jobs:
       - name: Run Tests
         env:
           PYTHONPATH: ${{ github.workspace }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          APP_USERNAME: ${{ secrets.APP_USERNAME }}    # ✅ renamed
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}    # ✅ renamed
+          SHOP_URL: ${{ secrets.SHOP_URL }}
+
         run: |
-          pytest SampleFramework/test/test_e2etest.py -v -s \
+          pytest SampleFramework/test/test_e2etest.py -v -s --browser_name="firefox" \
             --html=SampleFramework/reports/report.html \
             --self-contained-html
 

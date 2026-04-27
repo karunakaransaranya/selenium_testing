@@ -6,3 +6,13 @@ __pycache__/
 SampleFramework/reports/
 assets/
 PytestDemo/
+SampleFramework/.env
+ChildClass.py
+ParentClass.py
+demo.txt
+excel.py
+FirstDemo.py
+sample.py
+sample2.py
+test_main.py
+reports/

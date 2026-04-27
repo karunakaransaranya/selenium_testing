@@ -43,9 +43,7 @@ jobs:
           SHOP_URL: ${{ secrets.SHOP_URL }}
 
         run:
-          cd SampleFramework && pytest test/ -v -s --browser_name="firefox" \
-            --html=SampleFramework/reports/report.html \
-            --self-contained-html
+          cd SampleFramework && pytest test/ -v -s --browser_name="firefox" --html=reports/report.html --self-contained-html
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
         if: always()

@@ -11,7 +11,7 @@ def pytest_addoption(parser):
         help = "Browser name to run the tests",
     )
 
-@pytest.fixture(scope="package")
+@pytest.fixture(scope="function")
 def browser_detail(request):
     global driver
     browser = request.config.getoption("browser_name")

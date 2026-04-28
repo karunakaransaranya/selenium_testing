@@ -25,14 +25,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r SampleFramework/requirements.txt
 
-#      - name: Install Chrome
-#        uses: browser-actions/setup-chrome@latest   # ✅ updated
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@latest   # ✅ updated
 
-      - name: Install Firefox        # ✅ Add Firefox
-        uses: browser-actions/setup-firefox@latest
-
-      - name: Install GeckoDriver    # ✅ Add GeckoDriver for Firefox
-        uses: browser-actions/setup-geckodriver@latest
+#      - name: Install Firefox        # ✅ Add Firefox
+#        uses: browser-actions/setup-firefox@latest
+#
+#      - name: Install GeckoDriver    # ✅ Add GeckoDriver for Firefox
+#        uses: browser-actions/setup-geckodriver@latest
 
       - name: Run Tests
         env:
@@ -43,7 +43,7 @@ jobs:
           SHOP_URL: ${{ secrets.SHOP_URL }}
 
         run:
-          cd SampleFramework && pytest test/ -v -s --browser_name="firefox" --html=reports/report.html --self-contained-html
+          cd SampleFramework && pytest test/ -v -s --browser_name="chrome" --html=reports/report.html --self-contained-html
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
         if: always()

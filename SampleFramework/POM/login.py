@@ -11,6 +11,7 @@ class LoginPage(Util):
         self.username = (By.ID, "username")
         self.password = (By.ID, "password")
         self.signInBtn = (By.ID, "signInBtn")
+        self.error_msg = (By.CSS_SELECTOR, "div.alert.alert-danger")
 
     def go_to_url(self):                         # ✅ new method
         self.driver.get(BASE_URL)
@@ -28,3 +29,11 @@ class LoginPage(Util):
         self.driver.find_element(By.CSS_SELECTOR, "a[href='/angularpractice/shop']").click()
         print(self.driver.current_url)
         assert self.driver.current_url == "https://rahulshettyacademy.com/angularpractice/shop"
+
+    def assert_login_failed(self):
+        wait = WebDriverWait(self.driver, 10)
+        error_element = wait.until(EC.visibility_of_element_located(self.error_msg))
+        error_text = error_element.text
+        assert "Incorrect" in error_text, f"Expected login error message but got: '{error_text}'"
+        print(f"Login failed as expected. Error: {error_text}")
+

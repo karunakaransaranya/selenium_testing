@@ -7,6 +7,7 @@ from SampleFramework.util.config import BASE_URL, USERNAME, PASSWORD
 
 
 @pytest.mark.smoketest
+@pytest.mark.E2Etest
 def test_login(browser_detail):
     driver = browser_detail
     # driver.get("https://rahulshettyacademy.com/angularpractice/")
@@ -17,7 +18,33 @@ def test_login(browser_detail):
     loginPage.get_title()
 
 
-@pytest.mark.smoketest
+@pytest.mark.E2Etest
+def test_login_invalid_username_and_password(browser_detail):
+    driver = browser_detail
+    driver.get(BASE_URL)
+    loginPage = LoginPage(driver)
+    loginPage.login("invalidUser", "invalidPass")
+    loginPage.assert_login_failed()
+
+
+@pytest.mark.E2Etest
+def test_login_invalid_username_valid_password(browser_detail):
+    driver = browser_detail
+    driver.get(BASE_URL)
+    loginPage = LoginPage(driver)
+    loginPage.login("invalidUser", PASSWORD)
+    loginPage.assert_login_failed()
+
+
+@pytest.mark.E2Etest
+def test_login_valid_username_invalid_password(browser_detail):
+    driver = browser_detail
+    driver.get(BASE_URL)
+    loginPage = LoginPage(driver)
+    loginPage.login(USERNAME, "invalidPass")
+    loginPage.assert_login_failed()
+
+
 @pytest.mark.E2Etest
 def test_checkout(browser_detail):
     driver = browser_detail

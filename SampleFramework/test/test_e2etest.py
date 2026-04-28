@@ -17,7 +17,7 @@ def test_login(browser_detail):
     loginPage.get_title()
 
 
-@pytest.mark.smoketest
+
 @pytest.mark.E2Etest
 def test_checkout(browser_detail):
     driver = browser_detail

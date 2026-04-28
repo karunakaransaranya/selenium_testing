@@ -6,7 +6,7 @@ from SampleFramework.util.config import BASE_URL, USERNAME, PASSWORD
 
 
 
-@pytest.mark.smoketest
+@pytest.mark.regression
 def test_login(browser_detail):
     driver = browser_detail
     # driver.get("https://rahulshettyacademy.com/angularpractice/")

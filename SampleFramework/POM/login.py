@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from SampleFramework.util.utilities import Util
-from SampleFramework.util.config import USERNAME, PASSWORD
+from SampleFramework.util.config import USERNAME, PASSWORD, BASE_URL  # ✅ import BASE_URL
 
 class LoginPage(Util):
     def __init__(self, driver):
@@ -12,12 +12,15 @@ class LoginPage(Util):
         self.password = (By.ID, "password")
         self.signInBtn = (By.ID, "signInBtn")
 
-    def login(self,username,password):
+    def go_to_url(self):                         # ✅ new method
+        self.driver.get(BASE_URL)
+        self.driver.implicitly_wait(10)
+
+    def login(self, username, password):
         self.driver.find_element(*self.username).send_keys(username)
         self.driver.find_element(*self.password).send_keys(password)
         self.driver.find_element(*self.signInBtn).click()
         self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
 
     def home(self):
         wait = WebDriverWait(self.driver, 10)

@@ -16,3 +16,4 @@ sample.py
 sample2.py
 test_main.py
 reports/
+*.md

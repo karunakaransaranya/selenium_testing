@@ -1,0 +1,44 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - saranya-test
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: AI Code Review
+        uses: anc95/ChatGPT-CodeReview@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGUAGE: English
+          OPENAI_API_ENDPOINT: https://api.openai.com/v1
+          MODEL: gpt-4o-mini
+          PROMPT: |
+            You are a senior QA engineer reviewing Python Selenium test code.
+            Review the code changes and provide feedback on:
+            1. Test quality and coverage
+            2. Selenium best practices (waits, locators, POM structure)
+            3. Code readability and maintainability
+            4. Potential flakiness issues in tests
+            5. Missing assertions or edge cases
+            Be constructive and concise.
+          top_p: 1
+          temperature: 0.2
+          max_tokens: 512
+          MAX_PATCH_LENGTH: 10000
+
